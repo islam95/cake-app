@@ -1,5 +1,5 @@
 import React from "react";
-import Cake from "./Cake"
+import Cake from "./Cake";
 
 class CakesList extends React.Component {
   constructor(props) {
@@ -19,14 +19,28 @@ class CakesList extends React.Component {
         });
       });
   }
+
+  handleChange = e => {
+    e.preventDefault();
+    this.setState({
+      cakes: this.state.cakes.filter(cake => {
+        return cake.title.includes(e.target.value);
+      })
+    });
+    console.log(this.state.cakes);
+  };
+
   render() {
     return (
       <div>
-        {
-          this.state.cakes.map((cake) => {
-            return <Cake cake={cake} />
-          })
-        }
+        <input
+          type="text"
+          placeholder="Search a cake..."
+          onChange={this.handleChange}
+        />
+        {this.state.cakes.map(cake => {
+          return <Cake cake={cake} />;
+        })}
       </div>
     );
   }

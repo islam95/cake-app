@@ -5,7 +5,8 @@ class CakesList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      cakes: []
+      cakes: [],
+      input: ""
     };
     fetch(
       "https://gist.githubusercontent.com/hart88/198f29ec5114a3ec3460/raw/8dd19a88f9b8d24c23d9960f3300d0c917a4f07c/cake.json"
@@ -23,10 +24,15 @@ class CakesList extends React.Component {
   handleChange = e => {
     e.preventDefault();
     this.setState({
-      cakes: this.state.cakes.filter(cake => {
-        return cake.title.includes(e.currentTarget.value);
-      })
+      input: e.target.value
     });
+  };
+
+  filterCakes = () => {
+    const filteredCakes = this.state.cakes.filter(cake => {
+      return cake.title.includes(this.state.input);
+    });
+    return filteredCakes;
   };
 
   render() {
@@ -37,7 +43,7 @@ class CakesList extends React.Component {
           placeholder="Search a cake..."
           onChange={this.handleChange}
         />
-        {this.state.cakes.map((cake, index) => {
+        {this.filterCakes().map((cake, index) => {
           return <Cake key={index} cake={cake} />;
         })}
       </div>

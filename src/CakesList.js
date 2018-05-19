@@ -1,5 +1,6 @@
 import React from "react";
 import Cake from "./Cake";
+import AddCake from "./AddCake";
 
 class CakesList extends React.Component {
   constructor(props) {
@@ -35,6 +36,17 @@ class CakesList extends React.Component {
     return filteredCakes;
   };
 
+  addCake = (title, desc) => {
+    const cakes = this.state.cakes;
+    cakes.push({
+      title,
+      desc
+    });
+    this.setState({
+      cakes
+    });
+  };
+
   render() {
     return (
       <div>
@@ -43,6 +55,7 @@ class CakesList extends React.Component {
           placeholder="Search a cake..."
           onChange={this.handleChange}
         />
+        <AddCake addCake={this.addCake} />
         {this.filterCakes().map((cake, index) => {
           return <Cake key={index} cake={cake} />;
         })}

@@ -24,10 +24,9 @@ class CakesList extends React.Component {
     e.preventDefault();
     this.setState({
       cakes: this.state.cakes.filter(cake => {
-        return cake.title.includes(e.target.value);
+        return cake.title.includes(e.currentTarget.value);
       })
     });
-    console.log(this.state.cakes);
   };
 
   render() {
@@ -38,8 +37,8 @@ class CakesList extends React.Component {
           placeholder="Search a cake..."
           onChange={this.handleChange}
         />
-        {this.state.cakes.map(cake => {
-          return <Cake cake={cake} />;
+        {this.state.cakes.map((cake, index) => {
+          return <Cake key={index} cake={cake} />;
         })}
       </div>
     );

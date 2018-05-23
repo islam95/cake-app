@@ -31,20 +31,15 @@ class CakesList extends React.Component {
 
   filterCakes = () => {
     const filteredCakes = this.state.cakes.filter(cake => {
-      return cake.title.includes(this.state.input);
+      return cake.title.includes(this.state.input) || cake.desc.includes(this.state.input);
     });
     return filteredCakes;
   };
 
   addCake = (title, desc) => {
     const cakes = this.state.cakes;
-    cakes.push({
-      title,
-      desc
-    });
-    this.setState({
-      cakes
-    });
+    cakes.push({title, desc});
+    this.setState({cakes});
   };
 
   render() {
